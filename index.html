@@ -1,151 +1,122 @@
 <!DOCTYPE html>
-<html lang="en">
-
-  <head>
+<html lang="es">
+<head>
     <meta charset="UTF-8">
-    <title>Resume</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous"><link rel="stylesheet" href="https://public.codepenassets.com/css/normalize-5.0.0.min.css">
-<link rel="stylesheet" href="./style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jesús Bureo Osuna - Desarrollador Java Junior</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Segoe+UI&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body class="dark-mode">
+    <div class="container">
+        <!-- Encabezado con nombre y título -->
+        <header class="header">
+            <div class="profile-header">
+                <div class="avatar">
+                    <i class="fas fa-rocket"></i>
+                </div>
+                <div class="title-container">
+                    <h1 class="name">Jesús Bureo Osuna</h1>
+                    <h2 class="subtitle">Desarrollador Java Junior en formación</h2>
+                </div>
+            </div>
+            
+            <!-- Toggle de modo oscuro/claro -->
+            <div class="theme-toggle">
+                <button id="themeToggle" class="theme-btn">
+                    <i class="fas fa-moon"></i> Modo Oscuro
+                </button>
+            </div>
+        </header>
 
-  </head>
-    
-  <body>
-  <div class="resume">
-  <div class="base">
-    <div class="profile">
-      <div class="photo">
-        <!--<img src="" /> -->
-        <i class="fas fa-rocket"></i>
-      </div>
-      <div class="info">
-        <h1 class="name">Jesús Bureo</h1>
-        <h2 class="job">Frontend Web Designer</h2>
-      </div>
-    </div>
-    <div class="about">
-      <h3>About Me</h3>I'm a web designer for Fiserv, specializing in web design, graphic design, and UX. Experienced with the Adobe Creative Suite, responsive design, social media management, and prototyping.
-    </div>
-    <div class="contact">
-      <h3>Contact Me</h3>
-      <div class="call"><a href="tel:123-456-7890"><i class="fas fa-phone"></i><span>123-456-7890</span></a></div>
-      <div class="address"><a href="https://goo.gl/maps/fiTBGT6Vnhy"><i class="fas fa-map-marker"></i><span>Provo, Utah</span></a>
-      </div>
-      <div class="email"><a href="mailto:astronaomical@gmail.com"><i class="fas fa-envelope"></i><span>astronaomical</span></a></div>
-      <div class="website"><a href="http://astronaomical.com/" target="_blank"> <i class="fas fa-home"></i><span>astronaomical.com</span></a></div>
-    </div>
-    <div class="follow">
-      <h3>Follow Me</h3>
-      <div class="box">
-        <a href="https://www.facebook.com/astronaomical/" target="_blank"><i class="fab fa-facebook"></i></a>
-        <a href="https://www.instagram.com/astronaomical/" target="_blank"><i class="fab fa-instagram "></i></a>
-        <a href="https://www.pinterest.com/astronaomical/" target="_blank"><i class="fab fa-pinterest"></i></a>
-        <a href="https://www.linkedin.com/in/naomi-weatherford-758385112/" target="_blank"><i class="fab fa-linkedin"></i></a>
-        <a href="https://codepen.io/astronaomical/" target="_blank"><i class="fab fa-codepen"></i></a>
-        <a href="https://www.behance.net/astronaomical" target="_blank"><i class="fab fa-behance"></i></a>
-      </div>
-    </div>
-  </div>
-  <div class="func">
-    <div class="work">
-      <h3><i class="fa fa-briefcase"></i>Experience</h3>
-      <ul>
-        <li><span>Technical Consultant -<br>Web Design</span><small>Fiserv</small><small>Apr 2018 - Now</small></li>
-        <li><span>Web Designer</span><small>Lynden</small><small>Jan 2018 - Apr 2018</small></li>
-        <li><span>Intern - Web Design</span><small>Lynden</small><small>Aug 2017 - Dec 2017</small></li>
-      </ul>
-    </div>
-    <div class="edu">
-      <h3><i class="fa fa-graduation-cap"></i>Education</h3>
-      <ul>
-        <li><span>Bachelor of Science<br>Web Design and Development</span><small>BYU-Idaho</small><small>Jan. 2016 - Apr. 2018</small></li>
-        <li><span>Computer Science</span><small>Edmonds Community College</small><small>Sept. 2014 - Dec. 2015</small></li>
-        <li><span>High School</span><small>Henry M. Jackson High School</small><small>Jan. 2013 - Jun. 2015</small></li>
-      </ul>
-    </div>
-    <div class="skills-prog">
-      <h3><i class="fas fa-code"></i>Programming Skills</h3>
-      <ul>
-        <li data-percent="95"><span>HTML5</span>
-          <div class="skills-bar">
-            <div class="bar"></div>
-          </div>
-        </li>
-        <li data-percent="90"><span>CSS3 & SCSS</span>
-          <div class="skills-bar">
-            <div class="bar"></div>
-          </div>
-        </li>
-        <li data-percent="60"><span>JavaScript</span>
-          <div class="skills-bar">
-            <div class="bar"></div>
-          </div>
-        </li>
-        <li data-percent="50"><span>jQuery</span>
-          <div class="skills-bar">
-            <div class="bar"></div>
-          </div>
-        </li>
-        <li data-percent="40"><span>JSON</span>
-          <div class="skills-bar">
-            <div class="bar"></div>
-          </div>
-        </li>
-        <li data-percent="55"><span>PHP</span>
-          <div class="skills-bar">
-            <div class="bar"></div>
-          </div>
-        </li>
-        <li data-percent="40"><span>MySQL</span>
-          <div class="skills-bar">
-            <div class="bar"></div>
-          </div>
-        </li>
-      </ul>
-    </div>
-    <div class="skills-soft">
-      <h3><i class="fas fa-bezier-curve"></i>Software Skills</h3>
-      <ul>
-        <li data-percent="90">
-          <svg viewbox="0 0 100 100">
-            <circle cx="50" cy="50" r="45"></circle>
-            <circle class="cbar" cx="50" cy="50" r="45"></circle>
-          </svg><span>Illustrator</span><small></small>
-        </li>
-        <li data-percent="75">
-          <svg viewbox="0 0 100 100">
-            <circle cx="50" cy="50" r="45"></circle>
-            <circle class="cbar" cx="50" cy="50" r="45"></circle>
-          </svg><span>Photoshop</span><small></small>
-        </li>
-        <li data-percent="85">
-          <svg viewbox="0 0 100 100">
-            <circle cx="50" cy="50" r="45"></circle>
-            <circle class="cbar" cx="50" cy="50" r="45"></circle>
-          </svg><span>InDesign</span><small></small>
-        </li>
-        <li data-percent="65">
-          <svg viewbox="0 0 100 100">
-            <circle cx="50" cy="50" r="45"></circle>
-            <circle class="cbar" cx="50" cy="50" r="45"></circle>
-          </svg><span>Dreamweaver</span><small></small>
-        </li>
-      </ul>
-    </div>
-    <div class="interests">
-      <h3><i class="fas fa-star"></i>Interests</h3>
-      <div class="interests-items">
-        <div class="art"><i class="fas fa-palette"></i><span>Art</span></div>
-        <div class="art"><i class="fas fa-book"></i><span>Books</span></div>
-        <div class="movies"><i class="fas fa-film"></i><span>Movies</span></div>
-        <div class="music"><i class="fas fa-headphones"></i><span>Music</span></div>
-        <div class="games"><i class="fas fa-gamepad"></i><span>Games</span></div>
-      </div>
-    </div>
-  </div>
-</div>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js'></script><script  src="./script.js"></script>
+        <!-- Sistema de pestañas -->
+        <nav class="tabs-container">
+            <div class="tabs" id="mainTabs">
+                <button class="tab active" data-tab="profile">
+                    <i class="fas fa-user"></i> Perfil
+                </button>
+                <button class="tab" data-tab="skills">
+                    <i class="fas fa-code"></i> Habilidades
+                </button>
+                <button class="tab" data-tab="projects">
+                    <i class="fas fa-project-diagram"></i> Proyectos
+                </button>
+                <button class="tab" data-tab="languages">
+                    <i class="fas fa-globe"></i> Idiomas
+                </button>
+                <button class="tab" data-tab="contact">
+                    <i class="fas fa-envelope"></i> Contacto
+                </button>
+            </div>
+        </nav>
 
-  </body>
-  
+        <!-- Contenido de las pestañas -->
+        <main class="content">
+            <!-- Pestaña Perfil -->
+            <section id="profile" class="tab-content active">
+                <h3><i class="fas fa-user"></i> Sobre mí</h3>
+                <div class="card">
+                    <p>Estudiante de programación, con una formación sólida en Java y SQL para Backend. Conocimientos de la biblioteca JavaFX, HTML y CSS para frontend. Busco mi primera oportunidad profesional techie, donde pueda aplicar mis conocimientos y seguir aprendiendo.</p>
+                    
+                    <div class="highlight">
+                        <h4><i class="fas fa-bullseye"></i> Objetivo Profesional</h4>
+                        <p>Me encantaría integrarme en un equipo de desarrollo donde pueda contribuir con mis habilidades en Java y aprender de desarrolladores experimentados, mi objetivo es crecer.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Pestaña Habilidades -->
+            <section id="skills" class="tab-content">
+                <h3><i class="fas fa-code"></i> Habilidades Técnicas</h3>
+                <div class="card">
+                    <div class="skills-grid">
+                        <!-- Las barras de habilidades se cargan dinámicamente -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Pestaña Proyectos -->
+            <section id="projects" class="tab-content">
+                <h3><i class="fas fa-project-diagram"></i> Proyectos Personales</h3>
+                <div class="card">
+                    <div class="projects-grid">
+                        <!-- Los proyectos se cargan dinámicamente -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Pestaña Idiomas -->
+            <section id="languages" class="tab-content">
+                <h3><i class="fas fa-globe"></i> Idiomas</h3>
+                <div class="card">
+                    <div class="languages-grid">
+                        <!-- Los idiomas se cargan dinámicamente -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Pestaña Contacto -->
+            <section id="contact" class="tab-content">
+                <h3><i class="fas fa-envelope"></i> Contacto</h3>
+                <div class="card">
+                    <div class="contact-links">
+                        <!-- Los contactos se cargan dinámicamente -->
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>CV Interactivo - Desarrollado con HTML, CSS y JavaScript</p>
+            <button id="downloadBtn" class="btn-download">
+                <i class="fas fa-download"></i> Descargar como PDF
+            </button>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
 </html>

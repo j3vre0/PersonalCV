@@ -1,71 +1,337 @@
-(function() {
-  $(".skills-prog li")
-    .find(".skills-bar")
-    .each(function(i) {
-      $(this)
-        .find(".bar")
-        .delay(i * 150)
-        .animate(
-          {
-            width:
-              $(this)
-                .parents()
-                .attr("data-percent") + "%"
-          },
-          1000,
-          "linear",
-          function() {
-            return $(this).css({
-              "transition-duration": ".5s"
-            });
-          }
-        );
+// script.js - CV Interactivo de Jesús Bureo Osuna - Versión CORREGIDA
+
+document.addEventListener('DOMContentLoaded', function () {
+  // ============================================
+  // SISTEMA DE CAMBIO DE TEMA OSCURO/CLARO
+  // ============================================
+  const themeToggle = document.getElementById('themeToggle');
+  const body = document.body;
+
+  // Verificar si hay una preferencia guardada
+  const savedTheme = localStorage.getItem('theme') || 'dark';
+  if (savedTheme === 'light') {
+    body.classList.add('light-mode');
+    updateThemeButton('light');
+  }
+
+  // Función para actualizar el botón de tema
+  function updateThemeButton(theme) {
+    if (theme === 'light') {
+      themeToggle.innerHTML = '<i class="fas fa-sun"></i> Modo Claro';
+    } else {
+      themeToggle.innerHTML = '<i class="fas fa-moon"></i> Modo Oscuro';
+    }
+  }
+
+  // Event listener para el toggle de tema
+  themeToggle.addEventListener('click', function () {
+    body.classList.toggle('light-mode');
+
+    if (body.classList.contains('light-mode')) {
+      localStorage.setItem('theme', 'light');
+      updateThemeButton('light');
+    } else {
+      localStorage.setItem('theme', 'dark');
+      updateThemeButton('dark');
+    }
+  });
+
+  // ============================================
+  // SISTEMA DE PESTAÑAS
+  // ============================================
+  const tabs = document.querySelectorAll('.tab');
+  const tabContents = document.querySelectorAll('.tab-content');
+
+  function switchTab(tabId) {
+    tabs.forEach(tab => tab.classList.remove('active'));
+    tabContents.forEach(content => content.classList.remove('active'));
+
+    const activeTab = document.querySelector(`.tab[data-tab="${tabId}"]`);
+    const activeContent = document.getElementById(tabId);
+
+    if (activeTab && activeContent) {
+      activeTab.classList.add('active');
+      activeContent.classList.add('active');
+
+      // Animar barras de habilidades cuando se muestra esa pestaña
+      if (tabId === 'skills') {
+        // Pequeño retraso para asegurar que la pestaña esté visible
+        setTimeout(() => {
+          animateSkillBars();
+        }, 300);
+      }
+    }
+  }
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', function () {
+      const tabId = this.getAttribute('data-tab');
+      switchTab(tabId);
+    });
+  });
+
+  // ============================================
+  // BOTÓN DE DESCARGA PDF
+  // ============================================
+  const downloadBtn = document.getElementById('downloadBtn');
+  if (downloadBtn) {
+    downloadBtn.addEventListener('click', function () {
+      alert('La función de descarga PDF mejorada se implementará en la próxima fase.\n\nPor ahora, puedes usar la función de imprimir de tu navegador:\n1. Haz clic derecho en la página\n2. Selecciona "Imprimir"\n3. En destino, elige "Guardar como PDF"');
+    });
+  }
+
+  // ============================================
+  // CARGAR CONTENIDO INICIAL
+  // ============================================
+  loadSkills();
+  loadProjects();
+  loadLanguages();
+  loadContact();
+
+  // NOTA: HE ELIMINADO LA LLAMADA DUPLICADA A animateSkillBars()
+  // Las barras solo se animarán cuando se abra la pestaña "Habilidades"
+});
+
+// ============================================
+// ICONOS PARA HABILIDADES
+// ============================================
+const skillIcons = {
+  'Java': 'fab fa-java',
+  'SQL': 'fas fa-database',
+  'HTML/CSS': 'fab fa-html5',
+  'JavaScript': 'fab fa-js-square',
+  'JavaFX': 'fas fa-tv',
+  'Git': 'fab fa-git-alt'
+};
+
+// ============================================
+// FUNCIÓN PARA CARGAR LAS HABILIDADES (CORREGIDA)
+// ============================================
+function loadSkills() {
+  const skillsContainer = document.querySelector('#skills .card .skills-grid');
+
+  const skills = [
+    { name: 'Java', level: 5, max: 5 },
+    { name: 'SQL', level: 5, max: 5 },
+    { name: 'HTML/CSS', level: 2, max: 5 },
+    { name: 'JavaScript', level: 1, max: 5 },
+    { name: 'JavaFX', level: 4, max: 5 },
+    { name: 'Git', level: 2, max: 5 }
+  ];
+
+  let skillsHTML = '';
+
+  skills.forEach(skill => {
+    const icon = skillIcons[skill.name] || 'fas fa-code';
+    const percentage = (skill.level / skill.max) * 100;
+
+    skillsHTML += `
+            <div class="skill-item">
+                <div class="skill-header">
+                    <span class="skill-name">
+                        <i class="${icon}"></i> ${skill.name}
+                    </span>
+                    <span class="skill-level">${skill.level}/${skill.max}</span>
+                </div>
+                <div class="skill-bar">
+                    <div class="skill-progress" 
+                         data-level="${percentage}"
+                         style="--target-width: ${percentage}%; width: 0%">
+                    </div>
+                </div>
+            </div>
+        `;
+  });
+
+  skillsContainer.innerHTML = skillsHTML;
+  
+  // NOTA: HE ELIMINADO LA LLAMADA A animateSkillBars() DESDE AQUÍ
+  // Solo se llamará cuando se abra la pestaña "Habilidades"
+}
+
+// ============================================
+// FUNCIÓN PARA ANIMAR LAS BARRAS DE HABILIDADES (SIMPLIFICADA)
+// ============================================
+function animateSkillBars() {
+  const progressBars = document.querySelectorAll('.skill-progress');
+  
+  // Si ya están animadas, no hacer nada
+  if (progressBars[0] && progressBars[0].classList.contains('animated')) {
+    return;
+  }
+
+  // Animar cada barra con un retraso escalonado
+  progressBars.forEach((bar, index) => {
+    setTimeout(() => {
+      const targetWidth = bar.getAttribute('data-level') + '%';
+      bar.style.width = targetWidth;
+      bar.classList.add('animated');
+    }, index * 200);
+  });
+}
+
+// ============================================
+// ICONOS PARA TECNOLOGÍAS
+// ============================================
+const techIcons = {
+  'Java': 'fab fa-java',
+  'Java Swing': 'fas fa-window-maximize',
+  'MySQL': 'fas fa-database',
+  'XAMPP': 'fas fa-server',
+  'Apache Server': 'fas fa-server',
+  'NetBeans': 'fas fa-code',
+  'JavaFX': 'fas fa-tv',
+  'SceneBuilder': 'fas fa-paint-brush',
+  'SQL Server': 'fas fa-database',
+  'VSCode': 'fas fa-code'
+};
+
+// ============================================
+// FUNCIÓN PARA CARGAR PROYECTOS
+// ============================================
+function loadProjects() {
+  const projectsContainer = document.querySelector('#projects .card .projects-grid');
+
+  const projects = [
+    {
+      title: 'Gestión de Albaranes',
+      description: 'Aplicación de escritorio para gestionar inventario de entrada con unidades y precios de productos, proveedores y clientes. Actualmente en desarrollo.',
+      technologies: ['Java', 'Java Swing', 'MySQL', 'XAMPP', 'Apache Server', 'NetBeans'],
+      status: 'En desarrollo'
+    },
+    {
+      title: 'Cuestionarios de Salud Laboral',
+      description: 'Sistema de gestión de reconocimientos médicos con lista de espera, confirmaciones de asistencia y cuestionarios de salud laboral personalizables.',
+      technologies: ['Java', 'JavaFX', 'SceneBuilder', 'SQL Server', 'VSCode'],
+      status: 'Proyecto de prácticas - En desarrollo'
+    }
+  ];
+
+  let projectsHTML = '';
+
+  projects.forEach(project => {
+    let techHTML = '<div class="tech-list">';
+
+    project.technologies.forEach(tech => {
+      const icon = techIcons[tech] || 'fas fa-code';
+      techHTML += `
+                <div class="tech-bubble" title="${tech}">
+                    <i class="${icon}"></i>
+                    <span class="tech-name">${tech}</span>
+                </div>
+            `;
     });
 
-  $(".skills-soft li")
-    .find("svg")
-    .each(function(i) {
-      var c, cbar, circle, percent, r;
-      circle = $(this).children(".cbar");
-      r = circle.attr("r");
-      c = Math.PI * (r * 2);
-      percent = $(this)
-        .parent()
-        .data("percent");
-      cbar = (100 - percent) / 100 * c;
-      circle.css({
-        "stroke-dashoffset": c,
-        "stroke-dasharray": c
-      });
-      circle.delay(i * 150).animate(
-        {
-          strokeDashoffset: cbar
-        },
-        1000,
-        "linear",
-        function() {
-          return circle.css({
-            "transition-duration": ".3s"
-          });
-        }
-      );
-      $(this)
-        .siblings("small")
-        .prop("Counter", 0)
-        .delay(i * 150)
-        .animate(
-          {
-            Counter: percent
-          },
-          {
-            duration: 1000,
-            step: function(now) {
-              return $(this).text(Math.ceil(now) + "%");
-            }
-          }
-        );
-    });
-}.call(this));
+    techHTML += '</div>';
 
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiPGFub255bW91cz4iXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFBQSxDQUFBLENBQUUsaUJBQUYsQ0FBb0IsQ0FBQyxJQUFyQixDQUEwQixhQUExQixDQUF3QyxDQUFDLElBQXpDLENBQThDLFFBQUEsQ0FBQyxDQUFELENBQUE7SUFDNUMsQ0FBQSxDQUFFLElBQUYsQ0FBTyxDQUFDLElBQVIsQ0FBYSxNQUFiLENBQW9CLENBQUMsS0FBckIsQ0FBMkIsQ0FBQSxHQUFFLEdBQTdCLENBQWlDLENBQUMsT0FBbEMsQ0FBMEM7TUFDeEMsS0FBQSxFQUFPLENBQUEsQ0FBRSxJQUFGLENBQU8sQ0FBQyxPQUFSLENBQUEsQ0FBaUIsQ0FBQyxJQUFsQixDQUF1QixjQUF2QixDQUFBLEdBQXlDO0lBRFIsQ0FBMUMsRUFFRyxJQUZILEVBRVMsUUFGVCxFQUVtQixRQUFBLENBQUEsQ0FBQTthQUNqQixDQUFBLENBQUUsSUFBRixDQUFPLENBQUMsR0FBUixDQUFZO1FBQUEscUJBQUEsRUFBdUI7TUFBdkIsQ0FBWjtJQURpQixDQUZuQjtFQUQ0QyxDQUE5Qzs7RUFNQSxDQUFBLENBQUUsaUJBQUYsQ0FBb0IsQ0FBQyxJQUFyQixDQUEwQixLQUExQixDQUFnQyxDQUFDLElBQWpDLENBQXNDLFFBQUEsQ0FBQyxDQUFELENBQUE7QUFDcEMsUUFBQSxDQUFBLEVBQUEsSUFBQSxFQUFBLE1BQUEsRUFBQSxPQUFBLEVBQUE7SUFBQSxNQUFBLEdBQVMsQ0FBQSxDQUFFLElBQUYsQ0FBTyxDQUFDLFFBQVIsQ0FBaUIsT0FBakI7SUFDVCxDQUFBLEdBQUksTUFBTSxDQUFDLElBQVAsQ0FBWSxHQUFaO0lBQ0osQ0FBQSxHQUFJLElBQUksQ0FBQyxFQUFMLEdBQVUsQ0FBQyxDQUFBLEdBQUksQ0FBTDtJQUNkLE9BQUEsR0FBVSxDQUFBLENBQUUsSUFBRixDQUFPLENBQUMsTUFBUixDQUFBLENBQWdCLENBQUMsSUFBakIsQ0FBc0IsU0FBdEI7SUFDVixJQUFBLEdBQU8sQ0FBQyxDQUFDLEdBQUEsR0FBSSxPQUFMLENBQUEsR0FBYyxHQUFmLENBQUEsR0FBc0I7SUFDN0IsTUFBTSxDQUFDLEdBQVAsQ0FBVztNQUFBLG1CQUFBLEVBQXFCLENBQXJCO01BQXdCLGtCQUFBLEVBQW9CO0lBQTVDLENBQVg7SUFDQSxNQUFNLENBQUMsS0FBUCxDQUFhLENBQUEsR0FBRSxHQUFmLENBQW1CLENBQUMsT0FBcEIsQ0FBNEI7TUFDMUIsZ0JBQUEsRUFBa0I7SUFEUSxDQUE1QixFQUVHLElBRkgsRUFFUyxRQUZULEVBRW1CLFFBQUEsQ0FBQSxDQUFBO2FBQ2pCLE1BQU0sQ0FBQyxHQUFQLENBQVc7UUFBQSxxQkFBQSxFQUF1QjtNQUF2QixDQUFYO0lBRGlCLENBRm5CO0lBSUEsQ0FBQSxDQUFFLElBQUYsQ0FBTyxDQUFDLFFBQVIsQ0FBaUIsT0FBakIsQ0FBeUIsQ0FBQyxJQUExQixDQUErQixTQUEvQixFQUEwQyxDQUExQyxDQUE0QyxDQUFDLEtBQTdDLENBQW1ELENBQUEsR0FBRSxHQUFyRCxDQUF5RCxDQUFDLE9BQTFELENBQWtFO01BQ2hFLE9BQUEsRUFBUztJQUR1RCxDQUFsRSxFQUVHO01BQUEsUUFBQSxFQUFVLElBQVY7TUFBZ0IsSUFBQSxFQUFNLFFBQUEsQ0FBQyxHQUFELENBQUE7ZUFDdkIsQ0FBQSxDQUFFLElBQUYsQ0FBTyxDQUFDLElBQVIsQ0FBYSxJQUFJLENBQUMsSUFBTCxDQUFVLEdBQVYsQ0FBQSxHQUFpQixHQUE5QjtNQUR1QjtJQUF0QixDQUZIO0VBWG9DLENBQXRDO0FBTkEiLCJzb3VyY2VzQ29udGVudCI6WyIkKCcuc2tpbGxzLXByb2cgbGknKS5maW5kKCcuc2tpbGxzLWJhcicpLmVhY2ggKGkpIC0+XG4gICQodGhpcykuZmluZCgnLmJhcicpLmRlbGF5KGkqMTUwKS5hbmltYXRlIHtcbiAgICB3aWR0aDogJCh0aGlzKS5wYXJlbnRzKCkuYXR0cignZGF0YS1wZXJjZW50JykgKyAnJSdcbiAgfSwgMTAwMCwgJ2xpbmVhcicsIC0+XG4gICAgJCh0aGlzKS5jc3MgJ3RyYW5zaXRpb24tZHVyYXRpb24nOiAnLjVzJ1xuICByZXR1cm5cbiQoJy5za2lsbHMtc29mdCBsaScpLmZpbmQoJ3N2ZycpLmVhY2ggKGkpIC0+XG4gIGNpcmNsZSA9ICQodGhpcykuY2hpbGRyZW4oJy5jYmFyJylcbiAgciA9IGNpcmNsZS5hdHRyKCdyJylcbiAgYyA9IE1hdGguUEkgKiAociAqIDIpXG4gIHBlcmNlbnQgPSAkKHRoaXMpLnBhcmVudCgpLmRhdGEgJ3BlcmNlbnQnXG4gIGNiYXIgPSAoKDEwMC1wZXJjZW50KS8xMDApICogY1xuICBjaXJjbGUuY3NzICdzdHJva2UtZGFzaG9mZnNldCc6IGMsICdzdHJva2UtZGFzaGFycmF5JzogY1xuICBjaXJjbGUuZGVsYXkoaSoxNTApLmFuaW1hdGUge1xuICAgIHN0cm9rZURhc2hvZmZzZXQ6IGNiYXJcbiAgfSwgMTAwMCwgJ2xpbmVhcicsIC0+XG4gICAgY2lyY2xlLmNzcyAndHJhbnNpdGlvbi1kdXJhdGlvbic6ICcuM3MnXG4gICQodGhpcykuc2libGluZ3MoJ3NtYWxsJykucHJvcCgnQ291bnRlcicsIDApLmRlbGF5KGkqMTUwKS5hbmltYXRlIHtcbiAgICBDb3VudGVyOiBwZXJjZW50XG4gIH0sIGR1cmF0aW9uOiAxMDAwLCBzdGVwOiAobm93KSAtPlxuICAgICQodGhpcykudGV4dCBNYXRoLmNlaWwobm93KSArICclJ1xuICByZXR1cm4iXX0=
-//# sourceURL=coffeescript
+    projectsHTML += `
+            <div class="project-card">
+                <h4><i class="fas fa-folder-open"></i> ${project.title}</h4>
+                <p><strong>Estado:</strong> <span class="status-bubble">${project.status}</span></p>
+                <p>${project.description}</p>
+                ${techHTML}
+            </div>
+        `;
+  });
+
+  projectsContainer.innerHTML = projectsHTML;
+}
+
+// ============================================
+// FUNCIÓN PARA CARGAR IDIOMAS CON BANDERAS REALES
+// ============================================
+function loadLanguages() {
+  const languagesContainer = document.querySelector('#languages .card .languages-grid');
+
+  const languages = [
+    {
+      name: 'Inglés',
+      level: 'B2 (Certificado B1)',
+      flagCode: 'gb',
+      flagName: 'Reino Unido'
+    },
+    {
+      name: 'Francés',
+      level: 'A2',
+      flagCode: 'fr',
+      flagName: 'Francia'
+    },
+    {
+      name: 'Chino',
+      level: 'HSK1 (en preparación)',
+      flagCode: 'cn',
+      flagName: 'China'
+    }
+  ];
+
+  let languagesHTML = '';
+
+  languages.forEach(lang => {
+    const flagUrl = `https://flagcdn.com/w160/${lang.flagCode}.png`;
+
+    languagesHTML += `
+            <div class="language-bubble">
+                <div class="flag-bubble" title="Bandera de ${lang.flagName}">
+                    <img src="${flagUrl}" alt="Bandera de ${lang.flagName}" class="flag-image" 
+                         onerror="this.src='https://flagcdn.com/w160/un.png'">
+                </div>
+                <div class="language-text">
+                    <h4>${lang.name}</h4>
+                    <p>${lang.level}</p>
+                </div>
+            </div>
+        `;
+  });
+
+  languagesContainer.innerHTML = languagesHTML;
+}
+
+// ============================================
+// FUNCIÓN PARA CARGAR CONTACTO
+// ============================================
+function loadContact() {
+  const contactContainer = document.querySelector('#contact .card .contact-links');
+
+  // REEMPLAZA ESTOS ENLACES CON LOS TUYOS REALES
+  const contacts = [
+    {
+      platform: 'GitHub',
+      icon: 'fab fa-github',
+      link: 'https://github.com/tu-usuario',
+      text: 'Ver mis proyectos de código',
+      color: '#333'
+    },
+    {
+      platform: 'LinkedIn',
+      icon: 'fab fa-linkedin',
+      link: 'https://linkedin.com/in/tu-perfil',
+      text: 'Conectar profesionalmente',
+      color: '#0077B5'
+    },
+    {
+      platform: 'Email',
+      icon: 'fas fa-envelope',
+      link: 'mailto:jesusbureo@gmail.com',
+      text: 'jesusbureo@gmail.com',
+      color: '#EA4335'
+    }
+  ];
+
+  let contactHTML = '';
+
+  contacts.forEach(contact => {
+    contactHTML += `
+            <a href="${contact.link}" target="_blank" class="contact-link">
+                <div class="contact-icon" style="background: ${contact.color}">
+                    <i class="${contact.icon}"></i>
+                </div>
+                <div class="contact-text">
+                    <h4>${contact.platform}</h4>
+                    <p>${contact.text}</p>
+                </div>
+            </a>
+        `;
+  });
+
+  contactContainer.innerHTML = contactHTML;
+}
