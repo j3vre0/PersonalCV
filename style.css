@@ -217,234 +217,265 @@ body {
    SISTEMA DE PESTAÑAS (SIN SCROLL - VERSIÓN OPTIMIZADA)
    ============================================ */
 .tabs-container {
-    background-color: var(--card-bg);
-    border-radius: 25px;
-    margin-bottom: 25px;
-    box-shadow: var(--bubble-shadow);
-    padding: 20px;
-    border: 2px solid var(--card-border);
-    overflow: visible;
+  background-color: var(--card-bg);
+  border-radius: 25px;
+  margin-bottom: 25px;
+  box-shadow: var(--bubble-shadow);
+  padding: 20px;
+  border: 2px solid var(--card-border);
+  overflow: visible;
 }
 
 .tabs {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 15px;
-    padding: 0;
-    justify-items: center;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 15px;
+  padding: 0;
+  justify-items: center;
 }
 
 .tab {
-    width: 100%;
-    max-width: 220px;
-    padding: 20px 15px; /* Más padding para más espacio */
-    background: var(--card-bg);
-    border: 2px solid var(--card-border);
-    border-radius: 20px;
-    font-size: 1.2rem; /* Fuente más grande */
-    color: var(--text-color);
-    cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    text-align: center;
-    font-weight: 700; /* Texto en negrita */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 10px; /* Más espacio entre icono y texto */
-    min-height: 90px; /* Más alto */
-    word-break: break-word;
-    white-space: normal;
-    position: relative;
-    overflow: hidden;
-    letter-spacing: 0.5px; /* Espaciado entre letras */
+  width: 100%;
+  max-width: 220px;
+  padding: 20px 15px;
+  /* Más padding para más espacio */
+  background: var(--card-bg);
+  border: 2px solid var(--card-border);
+  border-radius: 20px;
+  font-size: 1.2rem;
+  /* Fuente más grande */
+  color: var(--text-color);
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  text-align: center;
+  font-weight: 700;
+  /* Texto en negrita */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  /* Más espacio entre icono y texto */
+  min-height: 90px;
+  /* Más alto */
+  word-break: break-word;
+  white-space: normal;
+  position: relative;
+  overflow: hidden;
+  letter-spacing: 0.5px;
+  /* Espaciado entre letras */
 }
 
 /* Efecto de brillo al pasar el mouse */
 .tab::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg,
-        transparent,
-        rgba(0, 0, 0, 0.2),
-        transparent);
-    transition: left 0.7s ease;
-    z-index: 1;
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg,
+      transparent,
+      rgba(0, 0, 0, 0.2),
+      transparent);
+  transition: left 0.7s ease;
+  z-index: 1;
 }
 
 .tab:hover::before {
-    left: 100%;
+  left: 100%;
 }
 
 /* Asegurar que el texto esté por encima del efecto de brillo */
 .tab span,
 .tab i {
-    position: relative;
-    z-index: 2;
+  position: relative;
+  z-index: 2;
 }
 
 .tab:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--hover-shadow);
-    background: rgba(147, 112, 219, 0.2);
-    border-color: var(--primary-purple);
+  transform: translateY(-5px);
+  box-shadow: var(--hover-shadow);
+  background: rgba(147, 112, 219, 0.2);
+  border-color: var(--primary-purple);
 }
 
 /* PESTAÑA ACTIVA - CORREGIDA PARA MÁXIMA LEGIBILIDAD */
 .tab.active {
-    background: linear-gradient(135deg, var(--primary-purple), var(--dark-purple));
-    color: #FFFFFF !important; /* Blanco puro */
-    transform: translateY(-3px);
-    box-shadow: var(--hover-shadow);
-    animation: bubble 2s infinite;
-    border-color: var(--primary-yellow);
-    position: relative;
-    z-index: 1;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); /* Sombra de texto */
-    font-weight: 800; /* Extra negrita */
+  background: linear-gradient(135deg, var(--primary-purple), var(--dark-purple));
+  color: #FFFFFF !important;
+  /* Blanco puro */
+  transform: translateY(-3px);
+  box-shadow: var(--hover-shadow);
+  animation: bubble 2s infinite;
+  border-color: var(--primary-yellow);
+  position: relative;
+  z-index: 1;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  /* Sombra de texto */
+  font-weight: 800;
+  /* Extra negrita */
 }
 
 /* Punto indicador en pestaña activa */
 .tab.active::after {
-    content: '';
-    position: absolute;
-    bottom: 8px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 10px;
-    height: 10px;
-    background-color: #FFFFFF; /* Blanco en lugar de amarillo */
-    border-radius: 50%;
-    animation: pulse 1.5s infinite;
-    border: 2px solid var(--primary-yellow); /* Borde amarillo */
+  content: '';
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 10px;
+  height: 10px;
+  background-color: #FFFFFF;
+  /* Blanco en lugar de amarillo */
+  border-radius: 50%;
+  animation: pulse 1.5s infinite;
+  border: 2px solid var(--primary-yellow);
+  /* Borde amarillo */
 }
 
 .tab i {
-    font-size: 1.8rem; /* Iconos más grandes */
-    flex-shrink: 0;
-    transition: all 0.3s;
-    color: rgba(230, 230, 250, 0.7); /* Más oscuro en estado normal */
+  font-size: 1.8rem;
+  /* Iconos más grandes */
+  flex-shrink: 0;
+  transition: all 0.3s;
+  color: rgba(230, 230, 250, 0.7);
+  /* Más oscuro en estado normal */
 }
 
 .tab:hover i {
-    transform: scale(1.3);
-    color: #FFFFFF; /* Blanco al hacer hover */
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+  transform: scale(1.3);
+  color: #FFFFFF;
+  /* Blanco al hacer hover */
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
 }
 
 /* ICONO EN PESTAÑA ACTIVA - MÁS VISIBLE */
 .tab.active i {
-    color: #FFD700 !important; /* Amarillo dorado brillante */
-    transform: scale(1.4); /* Más grande */
-    text-shadow: 0 0 15px rgba(255, 215, 0, 0.7); /* Efecto glow */
-    filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.5)); /* Sombra brillante */
+  color: #FFD700 !important;
+  /* Amarillo dorado brillante */
+  transform: scale(1.4);
+  /* Más grande */
+  text-shadow: 0 0 15px rgba(255, 215, 0, 0.7);
+  /* Efecto glow */
+  filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.5));
+  /* Sombra brillante */
 }
 
 /* Efecto de "glow" para la pestaña activa - MÁS SUTIL */
 .tab.active::before {
-    content: '';
-    position: absolute;
-    top: -2px;
-    left: -2px;
-    right: -2px;
-    bottom: -2px;
-    background: linear-gradient(45deg,
-        rgba(147, 112, 219, 0.7),  /* Más transparente */
-        rgba(255, 215, 0, 0.5),    /* Más transparente */
-        rgba(177, 156, 217, 0.7),  /* Más transparente */
-        rgba(147, 112, 219, 0.7)   /* Más transparente */
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg,
+      rgba(147, 112, 219, 0.7),
+      /* Más transparente */
+      rgba(255, 215, 0, 0.5),
+      /* Más transparente */
+      rgba(177, 156, 217, 0.7),
+      /* Más transparente */
+      rgba(147, 112, 219, 0.7)
+      /* Más transparente */
     );
-    border-radius: 22px;
-    z-index: -1;
-    animation: borderGlow 3s linear infinite;
-    background-size: 300% 300%;
-    opacity: 0.8; /* Más transparente */
+  border-radius: 22px;
+  z-index: -1;
+  animation: borderGlow 3s linear infinite;
+  background-size: 300% 300%;
+  opacity: 0.8;
+  /* Más transparente */
 }
 
 @keyframes borderGlow {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 /* Responsive para pestañas */
 @media (max-width: 1200px) {
-    .tabs {
-        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-        gap: 12px;
-    }
-    
-    .tab {
-        max-width: 200px;
-        padding: 18px 12px;
-        font-size: 1.15rem;
-        min-height: 85px;
-    }
-    
-    .tab i {
-        font-size: 1.6rem;
-    }
+  .tabs {
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 12px;
+  }
+
+  .tab {
+    max-width: 200px;
+    padding: 18px 12px;
+    font-size: 1.15rem;
+    min-height: 85px;
+  }
+
+  .tab i {
+    font-size: 1.6rem;
+  }
 }
 
 @media (max-width: 992px) {
-    .tabs {
-        grid-template-columns: repeat(3, 1fr);
-    }
-    
-    .tab {
-        max-width: none;
-        font-size: 1.1rem;
-    }
+  .tabs {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .tab {
+    max-width: none;
+    font-size: 1.1rem;
+  }
 }
 
 @media (max-width: 768px) {
-    .tabs {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 10px;
-    }
-    
-    .tab {
-        padding: 16px 10px;
-        font-size: 1.05rem;
-        min-height: 80px;
-    }
-    
-    .tab i {
-        font-size: 1.4rem;
-    }
-    
-    .tabs-container {
-        padding: 15px;
-    }
+  .tabs {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .tab {
+    padding: 16px 10px;
+    font-size: 1.05rem;
+    min-height: 80px;
+  }
+
+  .tab i {
+    font-size: 1.4rem;
+  }
+
+  .tabs-container {
+    padding: 15px;
+  }
 }
 
 @media (max-width: 480px) {
-    .tabs {
-        grid-template-columns: 1fr;
-        gap: 8px;
-    }
-    
-    .tab {
-        max-width: 100%;
-        padding: 15px 10px;
-        min-height: 75px;
-        font-size: 1rem;
-    }
-    
-    .tab i {
-        font-size: 1.3rem;
-    }
-    
-    .tab.active::after {
-        bottom: 5px;
-        width: 8px;
-        height: 8px;
-    }
+  .tabs {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .tab {
+    max-width: 100%;
+    padding: 15px 10px;
+    min-height: 75px;
+    font-size: 1rem;
+  }
+
+  .tab i {
+    font-size: 1.3rem;
+  }
+
+  .tab.active::after {
+    bottom: 5px;
+    width: 8px;
+    height: 8px;
+  }
 }
 
 /* ============================================
@@ -1158,5 +1189,76 @@ body {
   .flag-bubble {
     width: 70px;
     height: 70px;
+  }
+
+  /* ============================================
+   ESTILOS PARA LA GENERACIÓN DE PDF
+   ============================================ */
+  @keyframes slideInRight {
+    from {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes slideOutRight {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+
+    to {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+  }
+
+  .pdf-notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: linear-gradient(135deg, var(--primary-purple), var(--dark-purple));
+    color: white;
+    padding: 15px 20px;
+    border-radius: 10px;
+    box-shadow: var(--bubble-shadow);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    animation: slideInRight 0.3s ease;
+    border-left: 4px solid var(--primary-yellow);
+    max-width: 350px;
+  }
+
+  .pdf-notification i {
+    font-size: 1.5rem;
+    color: var(--primary-yellow);
+  }
+
+  /* Estilo para el botón mientras genera PDF */
+  .btn-download.generating {
+    background: linear-gradient(135deg, var(--dark-purple), var(--primary-purple));
+    pointer-events: none;
+    opacity: 0.8;
+  }
+
+  .btn-download.generating i {
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+
+    100% {
+      transform: rotate(360deg);
+    }
   }
 }
